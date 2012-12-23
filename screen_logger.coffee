@@ -15,6 +15,14 @@ class window.ScreenLogger
 
   html2CanvasUrl: "//jslogger.com/html2canvas.js"
 
+  logging: false
+
+  profiling: false
+
+  useCORS: true
+
+  imageProxyUrl: "//jslogger.com/image-proxy"
+
   constructor: (options = {})->
     @logger = options.logger
     @session = options.session or new Date().getTime()
@@ -38,9 +46,10 @@ class window.ScreenLogger
 
   takeScreenshot: (callback)->
     opts =
-      logging: true
-      #profile: true,
-      useCORS: true
+      logging: @logging
+      profile: @profiling
+      useCORS: @useCORS
+      proxy: @imageProxyUrl
       onrendered: (canvas)->
         try
           content = canvas.toDataURL()

@@ -18,6 +18,14 @@
 
     ScreenLogger.prototype.html2CanvasUrl = "//jslogger.com/html2canvas.js";
 
+    ScreenLogger.prototype.logging = false;
+
+    ScreenLogger.prototype.profiling = false;
+
+    ScreenLogger.prototype.useCORS = true;
+
+    ScreenLogger.prototype.imageProxyUrl = "//jslogger.com/image-proxy";
+
     function ScreenLogger(options) {
       if (options == null) options = {};
       this.onClick = __bind(this.onClick, this);
@@ -53,8 +61,10 @@
     ScreenLogger.prototype.takeScreenshot = function(callback) {
       var opts;
       opts = {
-        logging: true,
-        useCORS: true,
+        logging: this.logging,
+        profile: this.profiling,
+        useCORS: this.useCORS,
+        proxy: this.imageProxyUrl,
         onrendered: function(canvas) {
           var content;
           try {
