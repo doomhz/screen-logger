@@ -30,7 +30,7 @@ class window.ScreenLogger
     else
       callback() if typeof callback isnt undefined
 
-  setupEvents: ()->
+  setupEvents: ()=>
     document.onclick = @onClick
 
   log: (data, extraParams)->

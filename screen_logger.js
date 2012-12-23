@@ -21,6 +21,7 @@
     function ScreenLogger(options) {
       if (options == null) options = {};
       this.onClick = __bind(this.onClick, this);
+      this.setupEvents = __bind(this.setupEvents, this);
       this.logger = options.logger;
       this.session = options.session || new Date().getTime();
       this.loadDependencies(this.setupEvents);
