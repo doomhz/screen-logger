@@ -16,6 +16,8 @@
 
     ScreenLogger.prototype.logger = null;
 
+    ScreenLogger.prototype.session = null;
+
     ScreenLogger.prototype.html2CanvasUrl = "//jslogger.com/html2canvas.js";
 
     ScreenLogger.prototype.logging = false;
@@ -24,16 +26,25 @@
 
     ScreenLogger.prototype.useCORS = true;
 
-    ScreenLogger.prototype.imageProxyUrl = "//jslogger.com/image-proxy";
+    ScreenLogger.prototype.imageProxyUrl = null;
 
     function ScreenLogger(options) {
       if (options == null) options = {};
       this.onClick = __bind(this.onClick, this);
       this.setupEvents = __bind(this.setupEvents, this);
-      this.logger = options.logger;
-      this.session = options.session || new Date().getTime();
+      this.setOptions(options);
       this.loadDependencies(this.setupEvents);
     }
+
+    ScreenLogger.prototype.setOptions = function(options) {
+      this.logger = options.logger;
+      this.session = options.session || new Date().getTime();
+      this.html2canvas = options.html2canvas || this.html2canvas;
+      this.logging = options.logging || this.logging;
+      this.profiling = options.profiling || this.profiling;
+      this.useCORS = options.useCORS || this.useCORS;
+      return this.imageProxyUrl = options.imageProxyUrl || this.imageProxyUrl;
+    };
 
     ScreenLogger.prototype.loadDependencies = function(callback) {
       var script;

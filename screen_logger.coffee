@@ -13,6 +13,8 @@ class window.ScreenLogger
 
   logger: null
 
+  session: null
+
   html2CanvasUrl: "//jslogger.com/html2canvas.js"
 
   logging: false
@@ -21,12 +23,20 @@ class window.ScreenLogger
 
   useCORS: true
 
-  imageProxyUrl: "//jslogger.com/image-proxy"
+  imageProxyUrl: null
 
   constructor: (options = {})->
+    @setOptions options
+    @loadDependencies @setupEvents
+
+  setOptions: (options)->
     @logger = options.logger
     @session = options.session or new Date().getTime()
-    @loadDependencies @setupEvents
+    @html2canvas = options.html2canvas or @html2canvas
+    @logging = options.logging or @logging
+    @profiling = options.profiling or @profiling
+    @useCORS = options.useCORS or @useCORS
+    @imageProxyUrl = options.imageProxyUrl or @imageProxyUrl
 
   loadDependencies: (callback)->
     if not window.html2canvas
