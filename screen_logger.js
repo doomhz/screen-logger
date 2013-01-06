@@ -32,9 +32,19 @@
       if (options == null) options = {};
       this.onClick = __bind(this.onClick, this);
       this.setupEvents = __bind(this.setupEvents, this);
-      this.setOptions(options);
-      this.loadDependencies(this.setupEvents);
+      if (!this.isMobile() && this.supportsCanvas()) {
+        this.setOptions(options);
+        this.loadDependencies(this.setupEvents);
+      }
     }
+
+    ScreenLogger.prototype.supportsCanvas = function() {
+      return !!document.createElement("canvas").getContext;
+    };
+
+    ScreenLogger.prototype.isMobile = function() {
+      return navigator.appVersion.indexOf("Mobile") > -1;
+    };
 
     ScreenLogger.prototype.setOptions = function(options) {
       this.logger = options.logger;

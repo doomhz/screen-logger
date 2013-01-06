@@ -26,8 +26,15 @@ class window.ScreenLogger
   imageProxyUrl: null
 
   constructor: (options = {})->
-    @setOptions options
-    @loadDependencies @setupEvents
+    if not @isMobile() and @supportsCanvas()
+      @setOptions options
+      @loadDependencies @setupEvents
+
+  supportsCanvas: ()->
+    !!document.createElement("canvas").getContext
+
+  isMobile: ()->
+    navigator.appVersion.indexOf("Mobile") > -1
 
   setOptions: (options)->
     @logger = options.logger
